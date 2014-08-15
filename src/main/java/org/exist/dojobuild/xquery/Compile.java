@@ -20,10 +20,12 @@ public class Compile extends BasicFunction {
 		new SequenceType[] {
 			new FunctionParameterSequenceType("text", Type.STRING, Cardinality.ZERO_OR_MORE, "The profile to compile")
 		},
-		new SequenceType(Type.ITEM, Cardinality.EMPTY));
+		new SequenceType(Type.ITEM, Cardinality.EMPTY),
+		true);
 	public Compile(XQueryContext context) {
 		super(context, signature);
 	}
+	@Override
 	public Sequence eval(Sequence[] args, Sequence contextSequence)
 		throws XPathException {
 		if(!context.getSubject().hasDbaRole()) throw new XPathException(this,Module.XDJB001,"Only a DBA is allowed to execute this function");
@@ -56,6 +58,7 @@ public class Compile extends BasicFunction {
 		String baseUrl = "../util/buildscripts/build."+ext;
 		try {
 			ProcessBuilder pb = new ProcessBuilder(baseUrl,"-p",strlist.get(0));
+			pb.redirectErrorStream(true);
 			pb.directory(new File(dojohome));
 			Process process = pb.start();
 			InputStream is = process.getInputStream();
