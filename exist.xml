@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://exist-db.org/ns/expath-pkg">
+	<jar>dojobuild-0.1.0.jar</jar>
+    <java>
+        <namespace>http://exist-db.org/dojobuild</namespace>
+        <class>org.exist.dojobuild.xquery.Module</class>
+    </java>
+</package>

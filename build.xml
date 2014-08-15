@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="xar" name="dojobuild">
+    <property name="project.version" value="0.1"/>
+    <property name="project.app" value="dojobuild"/>
+    <property name="build.dir" value="build"/>
+    <target name="xar">
+    	<mkdir dir="content"/>
+    	<copy todir="content">
+    		<fileset dir="target">
+    			<include name="*.jar"/>
+    		</fileset>
+    	</copy>
+        <mkdir dir="${build.dir}"/>
+        <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="${build.dir}/** target/** src/** .classpath pom.xml build.xml .project .settings/** .git/**"/>
+    </target>
+</project>
