@@ -38,7 +38,7 @@ public class Module extends AbstractInternalModule {
 	
 	public static final ErrorCode XDJB001 = new DebugErrorCode("XDJB001", "Not permitted. Only a DBA is allowed to execute this function.");
 	public static final ErrorCode XDJB002 = new DebugErrorCode("XDJB002", "DOJO_HOME not set.");
-	public static final ErrorCode XDJB003 = new DebugErrorCode("XDJB003", "Unknown error.");
+	public static final ErrorCode XDJB003 = new DebugErrorCode("XDJB003", "IO error.");
 
     public static class DebugErrorCode extends ErrorCode {
         private DebugErrorCode(String code, String description) {
@@ -48,7 +48,7 @@ public class Module extends AbstractInternalModule {
     
 	private final static FunctionDef[] functions = {
 		//new FunctionDef(Run.signature, Run.class),
-		new FunctionDef(Exe.signature, Exe.class)
+		new FunctionDef(Compile.signature, Compile.class)
 	};
 
 	public Module(Map<String, List<? extends Object>> parameters) {
