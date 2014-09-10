@@ -57,10 +57,10 @@ public class Compile extends BasicFunction {
 		response.setHeader("Content-Type", "text/plain");
 		String baseUrl = "../util/buildscripts/build."+ext;
 		try {
-			ProcessBuilder pb = new ProcessBuilder(baseUrl,"-p",strlist.get(0));
+			final ProcessBuilder pb = new ProcessBuilder(baseUrl,"-p",strlist.get(0));
 			pb.redirectErrorStream(true);
 			pb.directory(new File(dojohome));
-			Process process = pb.start();
+			final Process process = pb.start();
 			InputStream is = process.getInputStream();
 			BinaryValue data = BinaryValueFromInputStream.getInstance(context, new Base64BinaryValueType(),is);
 			final OutputStream os = response.getOutputStream();
