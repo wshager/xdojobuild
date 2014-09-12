@@ -36,7 +36,6 @@ public class Compile extends BasicFunction {
 		for (SequenceIterator i = args[0].iterate(); i.hasNext();) {
 			strlist.add(i.nextItem().getStringValue());
 		}
-		String ext = OS.indexOf("win") >= 0 ? "bat" : "sh";
 		// about the execution environment of a script.
 		String dojohome = System.getenv("DOJO_HOME");
 		if(dojohome==null) throw new XPathException(this,Module.XDJB002,"DOJO_HOME not set");
@@ -55,11 +54,13 @@ public class Compile extends BasicFunction {
 		}
 		final ResponseWrapper response = (ResponseWrapper) respValue.getObject();
 		response.setHeader("Content-Type", "text/plain");
-		String baseUrl = "../util/buildscripts/build."+ext;
+		String ext = OS.indexOf("win") >= 0 ? "bat" : "sh";
+		File baseUrl = new File(dojohome + "/../util/buildscripts/build." + ext);
+		String profile = strlist.get(0);
 		try {
-			final ProcessBuilder pb = new ProcessBuilder(baseUrl,"-p",strlist.get(0));
-			pb.redirectErrorStream(true);
+			final ProcessBuilder pb = new ProcessBuilder(baseUrl.toString(),"-p",profile);
 			pb.directory(new File(dojohome));
+			pb.redirectErrorStream(true);
 			final Process process = pb.start();
 			InputStream is = process.getInputStream();
 			BinaryValue data = BinaryValueFromInputStream.getInstance(context, new Base64BinaryValueType(),is);
